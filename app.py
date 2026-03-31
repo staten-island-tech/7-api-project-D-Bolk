@@ -37,8 +37,9 @@ for key, value in pokemon.items():
 print(pokemon)
 
 
-""" 
-def getSoccerData(comp):
+""" """ """  """ """
+
+ def getSoccerData(comp):
     response = requests.get(f"https://api.sportsdata.io/v4/soccer/scores/json/Areas"{comp.lower()})
     if response.status_code != 200:
         print("Error fetching data!")
@@ -50,10 +51,10 @@ def getSoccerData(comp):
         "team": data["team"],
         "league": data["league"],
     }
-futbol = getSoccerData("England")
+soccer = getSoccerData("country")
 for key, value in comp.items():
     print(f"{key.title()}: {value}")
-print(country)
+print("country")
  
 
 
