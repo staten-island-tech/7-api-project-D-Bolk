@@ -14,7 +14,7 @@ if pokemon_data:
         print(f"{pikachu_data['name'].capitalize()} is of type(s): {', '.join(pikachu_data['types'])}") """
 
 
- """
+"""
 
 
 def getPoke(poke):
@@ -38,8 +38,8 @@ print(pokemon)
 
 
 """ """ """  """ """
-
- def getSoccerData(comp):
+def getSoccerData(comp):
+    soccer = getSoccerDatat("country")
     response = requests.get(f"https://api.sportsdata.io/v4/soccer/scores/json/Areas"{comp.lower()})
     if response.status_code != 200:
         print("Error fetching data!")
