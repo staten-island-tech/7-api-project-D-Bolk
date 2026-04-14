@@ -38,8 +38,8 @@ print(pokemon)
 
 
 """ """ """  """ """
-def getSoccerData(comp):
-    soccer = getSoccerDatat("country")
+""" def getSoccerData(comp):
+    soccer = getSoccerData("country")
     response = requests.get(f"https://api.sportsdata.io/v4/soccer/scores/json/Areas"{comp.lower()})
     if response.status_code != 200:
         print("Error fetching data!")
@@ -57,6 +57,47 @@ for key, value in comp.items():
 print("country")
  
 
+def get_soccer_data(area):
+    url = "https://api.sportsdata.io/v4/soccer/scores/json/Areas"
+    headers = {"Ocp-Apim-Subscription-Key": API_KEY}
+
+    response = requests.get(url, headers=headers)
+
+    if response.status_code != 200:
+        print("Error fetching data!")
+        return None
+
+    data = response.json()
+
+    for item in data:
+        if area.lower() in item["Name"].lower():
+            return item
+
+    return None
+
+
+def futbol():
+    while True:
+        user_input = input("\nEnter a country (or 'exit' to quit): ")
+
+        if user_input.lower() == "exit":
+            break
+
+        result = get_soccer_data(user_input)
+
+        if result:
+            print("\n--- Soccer Data ---")
+            print(f"Country: {result['Name']}")
+            print(f"Area ID: {result['AreaId']}")
+        else:
+            print("No data found.")
+
+
+if __name__ == "__main__":
+    futbol()
+
+ """
+API_KEY = {key}
 
 def get_soccer_data(area):
     url = "https://api.sportsdata.io/v4/soccer/scores/json/Areas"
