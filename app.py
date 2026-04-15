@@ -36,101 +36,42 @@ for key, value in pokemon.items():
     print(f"{key.title()}: {value}")
 print(pokemon)
 
-
-""" """ """  """ """
-""" def getSoccerData(comp):
-    soccer = getSoccerData("country")
-    response = requests.get(f"https://api.sportsdata.io/v4/soccer/scores/json/Areas"{comp.lower()})
-    if response.status_code != 200:
-        print("Error fetching data!")
-        return None
-
-    data = response.json()
-    return {
-        "country": data["country"],
-        "team": data["team"],
-        "league": data["league"],
-    }
-soccer = getSoccerData("country")
-for key, value in comp.items():
-    print(f"{key.title()}: {value}")
-print("country")
- 
-
-def get_soccer_data(area):
-    url = "https://api.sportsdata.io/v4/soccer/scores/json/Areas"
-    headers = {"Ocp-Apim-Subscription-Key": API_KEY}
-
-    response = requests.get(url, headers=headers)
-
-    if response.status_code != 200:
-        print("Error fetching data!")
-        return None
-
-    data = response.json()
-
-    for item in data:
-        if area.lower() in item["Name"].lower():
-            return item
-
-    return None
-
-
-def futbol():
-    while True:
-        user_input = input("\nEnter a country (or 'exit' to quit): ")
-
-        if user_input.lower() == "exit":
-            break
-
-        result = get_soccer_data(user_input)
-
-        if result:
-            print("\n--- Soccer Data ---")
-            print(f"Country: {result['Name']}")
-            print(f"Area ID: {result['AreaId']}")
-        else:
-            print("No data found.")
-
-
-if __name__ == "__main__":
-    futbol()
-
  """
-API_KEY = {key}
+import http.client
+conn = http.client.HTTPSConnection("https://v3.football.api-sports.io/leagues")
 
-def get_soccer_data(area):
-    url = "https://api.sportsdata.io/v4/soccer/scores/json/Areas"
-    headers = {"Ocp-Apim-Subscription-Key": API_KEY}
+def get_soccer_data(user_input):
+    url = "https://v3.football.api-sports.io/leagues"
+    headers = {
+        'x-apisports-key': 'YOUR_API_KEY'
+    }
+    params = {
+        "name": user_input
+    }
+    response = requests.get(url, headers=headers, params=params)
 
-    response = requests.get(url, headers=headers)
-
-    if response.status_code != 200:
+    if response.status_code != 204:
         print("Error fetching data!")
         return None
 
-    data = response.json()
-
-    for item in data:
-        if area.lower() in item["Name"].lower():
-            return item
-
-    return None
+    return response.json()
 
 
 def futbol():
     while True:
-        user_input = input("\nEnter a country (or 'exit' to quit): ")
+        user_input = input("\nEnter a league (or 'exit' to quit): ")
 
         if user_input.lower() == "exit":
             break
 
         result = get_soccer_data(user_input)
 
-        if result:
+        if result and result['response']:
+            league = result['response'][0]
+
             print("\n--- Soccer Data ---")
-            print(f"Country: {result['Name']}")
-            print(f"Area ID: {result['AreaId']}")
+            print(f"League: {league['league']['name']}")
+            print(f"Country: {league['country']['name']}")
         else:
             print("No data found.")
 
