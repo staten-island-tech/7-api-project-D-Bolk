@@ -53,8 +53,8 @@ def get_soccer_data(user_input):
     if response.status_code != 204:
         print("Error fetching data!")
         return None
-
-    return response.json()
+    elif response.status_code != 200:
+        return response.json()
 
 
 def futbol():
