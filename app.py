@@ -37,13 +37,10 @@ for key, value in pokemon.items():
 print(pokemon)
 
  """
-import http.client
-conn = http.client.HTTPSConnection("https://v3.football.api-sports.io/leagues")
-
 def get_soccer_data(user_input):
-    url = "https://v3.football.api-sports.io/leagues"
+    url = ('https://api.sportsdata.io/v4/soccer/scores/json/Competitions')
     headers = {
-        'x-apisports-key': 'YOUR_API_KEY'
+        'Ocp-Apim-Subscription-Key: {key}'
     }
     params = {
         "name": user_input
@@ -59,7 +56,7 @@ def get_soccer_data(user_input):
 
 def futbol():
     while True:
-        user_input = input("\nEnter a league (or 'exit' to quit): ")
+        user_input = input("\nEnter a country (or 'exit' to quit): ")
 
         if user_input.lower() == "exit":
             break
@@ -71,10 +68,10 @@ def futbol():
 
             print("\n--- Soccer Data ---")
             print(f"League: {league['league']['name']}")
-            print(f"Country: {league['country']['name']}")
+            print(f"Competition: {league['competition']['name']}")
         else:
             print("No data found.")
 
 
-if __name__ == "__main__":
-    futbol()
+
+futbol()
