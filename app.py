@@ -47,10 +47,10 @@ def get_soccer_data(user_input):
     }
     response = requests.get(url, headers=headers, params=params)
 
-    if response.status_code != 204:
+    if response.status_code != 200:
         print("Error fetching data!")
         return None
-    elif response.status_code != 200:
+    elif():
         return response.json()
 
 
@@ -63,7 +63,7 @@ def futbol():
 
         result = get_soccer_data(user_input)
 
-        if result and result['response']:
+        if result and isinstance('response', list):
             league = result['response'][0]
 
             print("\n--- Soccer Data ---")
