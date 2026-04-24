@@ -72,6 +72,4 @@ def futbol():
         else:
             print("No data found.")
 
-
-
 futbol()
