@@ -37,39 +37,67 @@ for key, value in pokemon.items():
 print(pokemon)
 
  """
-def get_soccer_data(user_input):
-    url = ('https://api.sportsdata.io/v4/soccer/scores/json/Competitions')
-    headers = {
-        'Ocp-Apim-Subscription-Key: {key}'
-    }
-    params = {
-        "name": user_input
-    }
-    response = requests.get(url, headers=headers, params=params)
+import os
+import requests
 
-    if response.status_code != 200:
-        print("Error fetching data!")
-        return None
-    elif():
-        return response.json()
+API_KEY = os.getenv("9d36553e31c1df00a176d6891a0704a5")
+
+BASE_URL = "https://v3.football.api-sports.io"
+
+HEADERS = {
+    "x-apisports-key": '9d36553e31c1df00a176d6891a0704a5'
+}
 
 
-def futbol():
+def get_teams(league_id=39, season=2024):
+    url = f"{BASE_URL}/teams?league={league_id}&season={season}"
+    response = requests.get(url, headers=HEADERS)
+    data = response.json()
+
+    print("\n Teams:\n")
+
+    for team in data.get("response", []):
+        name = team["team"]["name"]
+        country = team["team"]["country"]
+        print(f"{name} ({country})")
+
+
+def get_standings(league_id=39, season=2024):
+    url = f"{BASE_URL}/standings?league={league_id}&season={season}"
+    response = requests.get(url, headers=HEADERS)
+    data = response.json()
+
+    print("\n League Standings:\n")
+
+    standings = data["response"][0]["league"]["standings"][0]
+
+    for team in standings:
+        rank = team["rank"]
+        name = team["team"]["name"]
+        played = team["all"]["played"]
+        points = team["points"]
+
+        print(f"{rank}. {name} | {points} pts | Played: {played}")
+
+
+def code():
     while True:
-        user_input = input("\nEnter a country (or 'exit' to quit): ")
+        print("\n Your Soccer App")
+        print("1. View Teams")
+        print("2. View Standings")
+        print("3. Exit")
 
-        if user_input.lower() == "exit":
+        choice = input("Choose an option: ")
+
+        if choice == "1":
+            get_teams()
+        elif choice == "2":
+            get_standings()
+        elif choice == "3":
             break
-
-        result = get_soccer_data(user_input)
-
-        if result and isinstance('response', list):
-            league = result['response'][0]
-
-            print("\n--- Soccer Data ---")
-            print(f"League: {league['league']['name']}")
-            print(f"Competition: {league['competition']['name']}")
         else:
-            print("No data found.")
+            print("Invalid choice.")
 
-futbol()
+
+if __name__ == "__main__":
+    code()
